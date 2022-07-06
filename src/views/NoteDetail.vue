@@ -1,22 +1,20 @@
 <template>
-<div class="login">
-  <h1>{{msg}}</h1>
+<div class="note-detail">
+  <h1>{{msg}}: {{$route.params.noteId}}</h1>
 </div>
 </template>
 
 <script lang="ts">
 export default {
-  name: 'Login',
+  name: 'NoteDetail',
   data() {
-    return {
-      msg: '这是登陆页面'
+    return{
+      msg: '笔记详情页'
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.login{
-  color: red;
-}
+
 </style>
