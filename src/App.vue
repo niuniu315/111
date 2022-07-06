@@ -5,7 +5,7 @@
 </template>
 
 <style lang="scss">
-@import "src/assets/style/rest.scss";
+@import "assets/style/reset";
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
