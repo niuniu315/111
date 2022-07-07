@@ -9,7 +9,7 @@ Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
   {
-    path: '/',
+    path: '/login',
     component: Login
   },
   {
@@ -24,6 +24,9 @@ const routes: Array<RouteConfig> = [
     path: '/trash/:noteId',
     component: TrashDetail
   },
+  {
+    path: '/'
+  }
 ];
 
 const router = new VueRouter({
