@@ -2,7 +2,7 @@
   <div class="sidebar">
     <div class="icons">
       <router-link to="/detail/1" title="笔记">
-        <span class="iconfont icon-note">1111</span>
+        <Icon name="biji"/>
       </router-link>
       <router-link to="/notebook" title="笔记本">
         <span class="iconfont icon-notebook"></span>
@@ -18,8 +18,10 @@
 </template>
 
 <script lang="ts">
+import Icon from '@/components/Icon.vue';
 export default {
-  name: 'Sidebar'
+  name: 'Sidebar',
+  components: {Icon}
 };
 </script>
 
@@ -27,6 +29,5 @@ export default {
 .sidebar {
   width: 56px;
   text-align: center;
-  background-color: #2c333c;
 }
 </style>

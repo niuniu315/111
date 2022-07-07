@@ -7,6 +7,9 @@
 
 <script>
 import Sidebar from "@/components/Sidebar";
+import x from '../src/assets/icons/biji.svg'
+
+console.log(x);
 
 export default {
   components: {Sidebar}
