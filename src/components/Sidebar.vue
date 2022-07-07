@@ -1,5 +1,6 @@
 <template>
   <div class="sidebar">
+    <User/>
     <div class="icons">
       <router-link to="/detail/1" title="笔记">
         <Icon name="biji"/>
@@ -19,10 +20,11 @@
 
 <script lang="ts">
 import Icon from '@/components/Icon.vue';
+import User from '@/components/User.vue';
 
 export default {
   name: 'Sidebar',
-  components: {Icon}
+  components: {User, Icon}
 };
 </script>
 
@@ -35,20 +37,25 @@ export default {
   background: #2c333c;
   color: white;
 }
-.icons{
+
+.icons {
 }
+
 .icons > a {
   margin: 15px auto;
   display: block;
 }
-.icons > .router-link-active{
+
+.icons > .router-link-active {
   background: #5e6266;
 }
-.icon{
+
+.icon {
   color: #fff;
   width: 24px;
   height: 24px;
 }
+
 .logout {
   position: absolute;
   bottom: 20px;
