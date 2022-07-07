@@ -5,20 +5,21 @@
         <Icon name="biji"/>
       </router-link>
       <router-link to="/notebook" title="笔记本">
-        <span class="iconfont icon-notebook"></span>
+        <Icon name="bijiben"/>
       </router-link>
       <router-link to="/trash/2" title="回收站">
-        <span class="iconfont icon-trash"></span>
+        <Icon name="huishouzhan"/>
       </router-link>
     </div>
     <div class="logout">
-      <span class="iconfont icon-logout"></span>
+      <Icon name="tuichu"/>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import Icon from '@/components/Icon.vue';
+
 export default {
   name: 'Sidebar',
   components: {Icon}
@@ -27,7 +28,32 @@ export default {
 
 <style lang="scss" scoped>
 .sidebar {
+  position: relative;
   width: 56px;
+  height: 100vh;
   text-align: center;
+  background: #2c333c;
+  color: white;
+}
+.icons{
+}
+.icons > a {
+  margin: 15px auto;
+  display: block;
+}
+.icons > .router-link-active{
+  background: #5e6266;
+}
+.icon{
+  color: #fff;
+  width: 24px;
+  height: 24px;
+}
+.logout {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
 }
 </style>

@@ -7,9 +7,6 @@
 
 <script>
 import Sidebar from "@/components/Sidebar";
-import x from '../src/assets/icons/biji.svg'
-
-console.log(x);
 
 export default {
   components: {Sidebar}
@@ -24,5 +21,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: flex;
+  font-size: 14px;
 }
+
 </style>
