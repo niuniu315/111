@@ -12,19 +12,27 @@
         <Icon name="huishouzhan"/>
       </router-link>
     </div>
-    <div class="logout">
-      <Icon name="tuichu"/>
+    <div class="logout" @click="logout">
+      <Icon name="tuichu" />
     </div>
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Icon from '@/components/Icon.vue';
 import User from '@/components/User.vue';
+import request from '@/helper/request';
 
 export default {
   name: 'Sidebar',
-  components: {User, Icon}
+  components: {User, Icon},
+  methods: {
+    logout() {
+      request('/auth/logout').then(data => {
+        console.log(data);
+      })
+    }
+  }
 };
 </script>
 
