@@ -31,7 +31,8 @@
 </template>
 
 <script lang="ts">
-import request from '@/helper/request.js'
+import request from '@/helper/request.js';
+import Auth from '@/api/Auth.js';
 
 export default {
   name: 'Login',
@@ -75,12 +76,12 @@ export default {
       }
       this.register.isError = false;
       this.register.notice = '';
-      request('/auth/register','POST' ,{
+      Auth.register({
         username: this.register.username,
         password: this.register.password
       }).then(data => {
         console.log(data);
-      })
+      });
     },
     onLogin() {
       if (!/^[\w\u4e00-\u9fa5]{3,15}$/.test(this.login.username)) {
@@ -95,12 +96,12 @@ export default {
       }
       this.login.isError = false;
       this.login.notice = '';
-      request('/auth/login','POST' ,{
+      Auth.login({
         username: this.login.username,
         password: this.login.password
       }).then(data => {
         console.log(data);
-      })
+      });
     }
   }
 };

@@ -13,7 +13,7 @@
       </router-link>
     </div>
     <div class="logout" @click="logout">
-      <Icon name="tuichu" />
+      <Icon name="tuichu"/>
     </div>
   </div>
 </template>
@@ -21,14 +21,14 @@
 <script>
 import Icon from '@/components/Icon.vue';
 import User from '@/components/User.vue';
-import request from '@/helper/request';
+import Auth from "@/api/Auth";
 
 export default {
   name: 'Sidebar',
   components: {User, Icon},
   methods: {
     logout() {
-      request('/auth/logout').then(data => {
+      Auth.logout().then(data => {
         console.log(data);
       })
     }
