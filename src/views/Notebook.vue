@@ -1,12 +1,31 @@
 <template>
-  <div class="notebook-list">
-    <h1>{{ msg }}</h1>
-    <ul>
-      <li>
-        <router-link to="/detail/1">笔记本1</router-link>
-        <router-link to="/detail/2">笔记本2</router-link>
-      </li>
-    </ul>
+  <div class="detail" id="notebook-list">
+    <header>
+      <a href="#" class="btn"><i class="iconfont icon-plus"></i> 新建笔记本</a>
+    </header>
+    <main>
+      <div class="layout">
+        <h3>笔记本列表</h3>
+        <div class="book-list">
+          <a href="#" class="notebook">
+            <div>
+              <span class="iconfont">笔记本标题<span>3</span><span>编辑</span></span>
+              <span class="action">删除</span>
+              <span class="date">3天前</span>
+            </div>
+          </a>
+          <a href="#" class="notebook">
+            <div>
+              <span class="iconfont">笔记本标题<span>3</span><span>编辑</span></span>
+              <span class="action">删除</span>
+              <span class="date">3天前</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+    </main>
+
   </div>
 </template>
 
