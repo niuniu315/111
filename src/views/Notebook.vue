@@ -1,7 +1,9 @@
 <template>
   <div class="detail" id="notebook-list">
     <header>
-      <a href="#" class="btn"><i class="iconfont icon-plus"></i> 新建笔记本</a>
+      <a href="#" class="btn">
+        <Icon name="add"/>
+        新建笔记本</a>
     </header>
     <main>
       <div class="layout">
@@ -9,31 +11,37 @@
         <div class="book-list">
           <a href="#" class="notebook">
             <div>
-              <span class="iconfont">笔记本标题<span>3</span><span>编辑</span></span>
+              <Icon name="biji1"/>
+              笔记标题
+              <span>3</span>
+              <span class="action">编辑</span>
               <span class="action">删除</span>
               <span class="date">3天前</span>
             </div>
           </a>
           <a href="#" class="notebook">
             <div>
-              <span class="iconfont">笔记本标题<span>3</span><span>编辑</span></span>
+              <Icon name="biji1"/>
+              笔记标题
+              <span>3</span>
+              <span class="action">编辑</span>
               <span class="action">删除</span>
               <span class="date">3天前</span>
             </div>
           </a>
         </div>
       </div>
-
     </main>
-
   </div>
 </template>
 
 <script lang="ts">
 import Auth from '@/api/Auth';
+import Icon from '@/components/Icon.vue';
 
 export default {
   name: 'Notebook',
+  components: {Icon},
   data() {
     return {
       msg: '笔记本列表'
@@ -42,9 +50,9 @@ export default {
   created() {
     Auth.getInfo().then(res => {
       if (!res.isLogin) {
-        this.$router.push({path: '/login'})
+        this.$router.push({path: '/login'});
       }
-    })
+    });
   }
 };
 </script>
