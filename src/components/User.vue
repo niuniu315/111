@@ -4,6 +4,7 @@
 
 <script lang="ts">
 import Auth from '@/api/Auth';
+import Vuee from '@/helper/vuee.js';
 
 export default {
   name: 'User',
@@ -13,10 +14,12 @@ export default {
     };
   },
   created() {
+    Vuee.$on('userInfo', user => {
+      this.username = user.username;
+    });
     Auth.getInfo().then(res => {
       if (res.isLogin) {
         this.username = res.data.username;
-        console.log(this.username)
       }
     });
   },

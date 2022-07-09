@@ -32,6 +32,7 @@
 
 <script lang="ts">
 import Auth from '@/api/Auth.js';
+import Vuee from '@/helper/vuee.js';
 
 export default {
   name: 'Login',
@@ -81,6 +82,7 @@ export default {
         // 先判断密码是否不存在=>不存在跳转页面
         this.register.isError = false;
         this.register.notice = '';
+        Vuee.$emit('userInfo', {username: this.login.username});
         this.$router.push({path: 'notebook'});
       }).catch(data => {
         // 再判断密码是否存在 存在显示错误
@@ -106,6 +108,7 @@ export default {
         // 先判断密码是否正确=>跳转页面
         this.login.isError = false;
         this.login.notice = '';
+        Vuee.$emit('userInfo', {username: this.login.username});
         this.$router.push({path: 'notebook'});
       }).catch(data => {
         // 再判断密码是否正确 不正确显示错误
