@@ -11,12 +11,21 @@
 </template>
 
 <script lang="ts">
+import Auth from '@/api/Auth';
+
 export default {
   name: 'Notebook',
   data() {
     return {
       msg: '笔记本列表'
     };
+  },
+  created() {
+    Auth.getInfo().then(res => {
+      if (!res.isLogin) {
+        this.$router.push({path: '/login'})
+      }
+    })
   }
 };
 </script>
