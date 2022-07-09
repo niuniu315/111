@@ -31,7 +31,6 @@
 </template>
 
 <script lang="ts">
-import request from '@/helper/request.js';
 import Auth from '@/api/Auth.js';
 
 export default {
@@ -74,13 +73,19 @@ export default {
         this.register.notice = '密码长度为6~16个字符';
         return;
       }
-      this.register.isError = false;
-      this.register.notice = '';
+
       Auth.register({
         username: this.register.username,
         password: this.register.password
       }).then(data => {
-        console.log(data);
+        // 先判断密码是否不存在=>不存在跳转页面
+        this.register.isError = false;
+        this.register.notice = '';
+        this.$router.push({path: 'notebook'});
+      }).catch(data => {
+        // 再判断密码是否存在 存在显示错误
+        this.register.isError = true;
+        this.register.notice = data.msg;
       });
     },
     onLogin() {
@@ -94,13 +99,18 @@ export default {
         this.login.notice = '密码长度为6~16个字符';
         return;
       }
-      this.login.isError = false;
-      this.login.notice = '';
       Auth.login({
         username: this.login.username,
         password: this.login.password
       }).then(data => {
-        console.log(data);
+        // 先判断密码是否正确=>跳转页面
+        this.login.isError = false;
+        this.login.notice = '';
+        this.$router.push({path: 'notebook'});
+      }).catch(data => {
+        // 再判断密码是否正确 不正确显示错误
+        this.login.isError = true;
+        this.login.notice = data.msg;
       });
     }
   }
