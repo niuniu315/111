@@ -1,0 +1,73 @@
+#notebook-list {
+  flex: 1;
+
+  .btn {
+    background:  white;
+    font-size: 14px;
+    margin-left: 10px;
+    padding: 8px;
+  }
+  .add {
+    font-size: larger;
+  }
+
+  header {
+    padding: 12px;
+    border-bottom: 1px solid #ccc;
+  }
+
+  main {
+    padding: 30px 40px;
+  }
+  .layout {
+    max-width: 966px;
+    margin: 0 auto;
+  }
+
+
+  main h3{
+    font-size: 15px;
+    font-weight: bolder;
+    color: #000;
+  }
+
+  main .book-list {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #666;
+    background-color: #fff;
+    border-radius: 4px;
+    font-weight: bold;
+  }
+  main .book-list span {
+    font-size: 12px;
+    font-weight: bold;
+    color: #b3c0c8;
+  }
+  main .date, main .action{
+    float: right;
+    margin-left: 10px;
+  }
+  main .iconfont {
+    color: #1687ea;
+    margin-right: 4px;
+  }
+  main .notebook {
+    display: block;
+    cursor: pointer;
+  }
+  main a.notebook:hover {
+    background-color: #f7fafd;
+  }
+
+  main a.notebook div {
+    border-bottom: 1px solid #ebebeb;
+    padding: 12px 14px;
+  }
+
+  main .error-msg {
+    font-size: 12px;
+    color: red;
+  }
+
+}

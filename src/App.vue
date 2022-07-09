@@ -22,6 +22,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   display: flex;
   font-size: 14px;
+  background: #eeeeee;
 }
 
 </style>

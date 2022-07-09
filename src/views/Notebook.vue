@@ -1,13 +1,11 @@
 <template>
   <div class="detail" id="notebook-list">
     <header>
-      <a href="#" class="btn">
-        <Icon name="add"/>
-        新建笔记本</a>
+      <a href="#" class="btn"><Icon name="add" class="add"/>新建笔记本</a>
     </header>
     <main>
       <div class="layout">
-        <h3>笔记本列表</h3>
+        <h3>笔记本列表(111)</h3>
         <div class="book-list">
           <a href="#" class="notebook">
             <div>
@@ -58,5 +56,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+@import "~@/assets/style/notebookListCss.scss";
 </style>
