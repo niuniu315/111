@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import Auth from '@/api/Auth.js';
+import LoginApi from '@/api/LoginApi.js';
 import Vuee from '@/helper/vuee.js';
 
 export default {
@@ -75,7 +75,7 @@ export default {
         return;
       }
 
-      Auth.register({
+      LoginApi.register({
         username: this.register.username,
         password: this.register.password
       }).then(data => {
@@ -101,7 +101,7 @@ export default {
         this.login.notice = '密码长度为6~16个字符';
         return;
       }
-      Auth.login({
+      LoginApi.login({
         username: this.login.username,
         password: this.login.password
       }).then(data => {

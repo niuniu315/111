@@ -2,8 +2,8 @@
   <span :title="username">{{ slug }}</span>
 </template>
 
-<script lang="ts">
-import Auth from '@/api/Auth';
+<script>
+import LoginApi from '@/api/LoginApi';
 import Vuee from '@/helper/vuee.js';
 
 export default {
@@ -17,7 +17,7 @@ export default {
     Vuee.$on('userInfo', user => {
       this.username = user.username;
     });
-    Auth.getInfo().then(res => {
+    LoginApi.getInfo().then(res => {
       if (res.isLogin) {
         this.username = res.data.username;
       }

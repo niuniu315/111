@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import Auth from '@/api/Auth';
+import LoginApi from '@/api/LoginApi';
 import Icon from '@/components/Icon.vue';
 
 export default {
@@ -46,7 +46,7 @@ export default {
     };
   },
   created() {
-    Auth.getInfo().then(res => {
+    LoginApi.getInfo().then(res => {
       if (!res.isLogin) {
         this.$router.push({path: '/login'});
       }

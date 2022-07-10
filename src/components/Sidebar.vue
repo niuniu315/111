@@ -12,7 +12,7 @@
         <Icon name="huishouzhan"/>
       </router-link>
     </div>
-    <div class="logout" @click="logout">
+    <div class="logout" @click="logout" title="注销登陆">
       <Icon name="tuichu"/>
     </div>
   </div>
@@ -21,14 +21,14 @@
 <script>
 import Icon from '@/components/Icon.vue';
 import User from '@/components/User.vue';
-import Auth from "@/api/Auth";
+import LoginApi from "@/api/LoginApi";
 
 export default {
   name: 'Sidebar',
   components: {User, Icon},
   methods: {
     logout() {
-      Auth.logout().then(data => {
+      LoginApi.logout().then(data => {
         this.$router.push({path: 'login'});
       })
     }
