@@ -33,7 +33,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Auth from '@/api/Auth';
 import Icon from '@/components/Icon.vue';
 

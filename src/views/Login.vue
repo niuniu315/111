@@ -30,7 +30,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Auth from '@/api/Auth.js';
 import Vuee from '@/helper/vuee.js';
 
@@ -79,7 +79,7 @@ export default {
         username: this.register.username,
         password: this.register.password
       }).then(data => {
-        // 先判断密码是否不存在=>不存在跳转页面
+        // 先判断注册密码是否不存在=>不存在跳转页面
         this.register.isError = false;
         this.register.notice = '';
         Vuee.$emit('userInfo', {username: this.login.username});
@@ -105,7 +105,7 @@ export default {
         username: this.login.username,
         password: this.login.password
       }).then(data => {
-        // 先判断密码是否正确=>跳转页面
+        // 先判断登陆密码是否正确=>跳转页面
         this.login.isError = false;
         this.login.notice = '';
         Vuee.$emit('userInfo', {username: this.login.username});
