@@ -17,7 +17,7 @@
               <!--              .stop阻止事件传播 .prevent阻止默认事件-->
               <span class="action" @click.stop.prevent="onEdit(notebook)">编辑</span>
               <span class="action" @click.stop.prevent="onDelete(notebook)">删除</span>
-              <span class="date">3天前</span>
+              <span class="date">{{ notebook.beautifyCreatedAt }}</span>
             </div>
           </router-link>
         </div>
@@ -30,6 +30,7 @@
 import LoginApi from '@/api/LoginApi';
 import Icon from '@/components/Icon.vue';
 import NotebookApi from '@/api/NotebookApi';
+import beautifyDate from "@/helper/beautifyDate";
 
 // window.Notebook = NotebookApi
 
@@ -52,17 +53,19 @@ export default {
     });
   },
   methods: {
-    onCreate: function () {
+    onCreate() {
       const title = window.prompt('创建笔记本')
       // .trim() 删除字符串里的空格（所有空白字符）
       if (title.trim() === '') {
         window.alert('笔记本名不能为空')
+      } else {
+        NotebookApi.addNotebook({title}).then(res => {
+          res.data.beautifyCreatedAt = beautifyDate(res.data.createdAt)
+          // .unshift 将一个或多个元素添加到数组的开头，保留原数组
+          this.notebooks.unshift(res.data)
+          window.alert(res.msg)
+        })
       }
-      NotebookApi.addNotebook({title}).then(res => {
-        window.alert(res.msg)
-        // .unshift 将一个或多个元素添加到数组的开头，保留原数组
-        this.notebooks.unshift(res.data)
-      })
     },
     onEdit(notebook) {
       const title = window.prompt('修改标题', notebook.title)
