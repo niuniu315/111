@@ -13,10 +13,10 @@
             <div>
               <Icon name="biji1"/>
               {{ notebook.title }}
-              <span>{{notebook.noteCounts}}</span>
-<!--              .stop阻止事件传播 .prevent阻止默认事件-->
+              <span>{{ notebook.noteCounts }}</span>
+              <!--              .stop阻止事件传播 .prevent阻止默认事件-->
               <span class="action" @click.stop.prevent="onEdit(notebook)">编辑</span>
-              <span class="action" @click.stop.prevent="onDelete">删除</span>
+              <span class="action" @click.stop.prevent="onDelete(notebook)">删除</span>
               <span class="date">3天前</span>
             </div>
           </router-link>
@@ -52,19 +52,41 @@ export default {
     });
   },
   methods: {
-    onCreate() {
-      console.log(1);
+    onCreate: function () {
+      const title = window.prompt('创建笔记本')
+      // .trim() 删除字符串里的空格（所有空白字符）
+      if (title.trim() === '') {
+        window.alert('笔记本名不能为空')
+      }
+      NotebookApi.addNotebook({title}).then(res => {
+        window.alert(res.msg)
+        // .unshift 将一个或多个元素添加到数组的开头，保留原数组
+        this.notebooks.unshift(res.data)
+      })
     },
-    onEdit() {
-      console.log(2);
+    onEdit(notebook) {
+      const title = window.prompt('修改标题', notebook.title)
+      NotebookApi.updateNotebook(notebook.id, {title})
+          .then(res => {
+            notebook.title = title
+            window.alert(res.msg)
+          })
     },
-    onDelete() {
-      console.log(3);
+    onDelete(notebook) {
+      const isConfirm = window.confirm('你确定要删除吗?')
+      if (isConfirm) {
+        NotebookApi.deleteNotebook(notebook.id)
+            .then(res => {
+              this.notebooks.splice(this.notebooks.indexOf(notebook), 1)
+              alert(res.msg)
+            })
+      }
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+
 @import "~@/assets/style/notebookListCss.scss";
 </style>

@@ -3,8 +3,8 @@ import request from "@/helper/request";
 const URL = {
   GET: '/notebooks',
   ADD: '/notebooks',
-  UPDATE: '/notebook/:id',
-  DELETE: '/notebook/:id'
+  UPDATE: '/notebooks/:id',
+  DELETE: '/notebooks/:id'
 }
 
 export default {
