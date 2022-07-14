@@ -1,7 +1,7 @@
 <template>
   <div class="detail" id="notebook-list">
     <header>
-      <a href="#" class="btn" @click="onCreate">
+      <a href="#" class="btn" @click.prevent="onCreate">
         <Icon name="add" class="add"/>
         新建笔记本</a>
     </header>
@@ -54,36 +54,69 @@ export default {
   },
   methods: {
     onCreate() {
-      const title = window.prompt('创建笔记本')
-      // .trim() 删除字符串里的空格（所有空白字符）
-      if (title.trim() === '') {
-        window.alert('笔记本名不能为空')
-      } else {
-        NotebookApi.addNotebook({title}).then(res => {
-          res.data.beautifyCreatedAt = beautifyDate(res.data.createdAt)
-          // .unshift 将一个或多个元素添加到数组的开头，保留原数组
-          this.notebooks.unshift(res.data)
-          window.alert(res.msg)
+      this.$prompt('输入新笔记本标题', '创建笔记本', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        inputPattern: /^.{1,30}$/,
+        inputErrorMessage: '标题不能为空，最大长度30字符'
+      }).then(({value}) => {
+        return NotebookApi.addNotebook({title: value})
+      }).then(res => {
+        res.data.beautifyCreatedAt = beautifyDate(res.data.createdAt)
+        this.notebooks.unshift(res.data)
+        this.$message({
+          type: 'success',
+          message: res.msg
         })
-      }
+      }).catch((res) => {
+        this.$message({
+          type: 'error',
+          message: res.msg
+        })
+      })
     },
     onEdit(notebook) {
-      const title = window.prompt('修改标题', notebook.title)
-      NotebookApi.updateNotebook(notebook.id, {title})
-          .then(res => {
-            notebook.title = title
-            window.alert(res.msg)
-          })
+      let title = ''
+      this.$prompt('输入修改后的标题', '修改笔记本', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        inputPattern: /^.{1,30}$/,
+        inputErrorMessage: '标题不能为空，最大长度30字符'
+      }).then(({value}) => {
+        title = value
+        return NotebookApi.updateNotebook(notebook.id, {title})
+      }).then(res => {
+        notebook.title = title
+        this.$message({
+          type: 'success',
+          message: res.msg
+        })
+      }).catch((res) => {
+        this.$message({
+          type: 'error',
+          message: res.msg
+        })
+      })
     },
     onDelete(notebook) {
-      const isConfirm = window.confirm('你确定要删除吗?')
-      if (isConfirm) {
-        NotebookApi.deleteNotebook(notebook.id)
-            .then(res => {
-              this.notebooks.splice(this.notebooks.indexOf(notebook), 1)
-              alert(res.msg)
-            })
-      }
+      this.$confirm('确定要删除此笔记本吗', '删除笔记本', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        return NotebookApi.deleteNotebook(notebook.id)
+      }).then(res => {
+        this.notebooks.splice(this.notebooks.indexOf(notebook), 1)
+        this.$message({
+          type: 'success',
+          message: res.msg
+        })
+      }).catch(res => {
+        this.$message({
+          type: 'error',
+          message: res.msg
+        })
+      })
     }
   }
 };
