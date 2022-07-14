@@ -64,15 +64,7 @@ export default {
       }).then(res => {
         res.data.beautifyCreatedAt = beautifyDate(res.data.createdAt)
         this.notebooks.unshift(res.data)
-        this.$message({
-          type: 'success',
-          message: res.msg
-        })
-      }).catch((res) => {
-        this.$message({
-          type: 'error',
-          message: res.msg
-        })
+        this.$message.success(res.msg)
       })
     },
     onEdit(notebook) {
@@ -80,6 +72,7 @@ export default {
       this.$prompt('输入修改后的标题', '修改笔记本', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
+        inputValue: notebook.title,
         inputPattern: /^.{1,30}$/,
         inputErrorMessage: '标题不能为空，最大长度30字符'
       }).then(({value}) => {
@@ -87,15 +80,7 @@ export default {
         return NotebookApi.updateNotebook(notebook.id, {title})
       }).then(res => {
         notebook.title = title
-        this.$message({
-          type: 'success',
-          message: res.msg
-        })
-      }).catch((res) => {
-        this.$message({
-          type: 'error',
-          message: res.msg
-        })
+        this.$message.success(res.msg)
       })
     },
     onDelete(notebook) {
@@ -107,15 +92,7 @@ export default {
         return NotebookApi.deleteNotebook(notebook.id)
       }).then(res => {
         this.notebooks.splice(this.notebooks.indexOf(notebook), 1)
-        this.$message({
-          type: 'success',
-          message: res.msg
-        })
-      }).catch(res => {
-        this.$message({
-          type: 'error',
-          message: res.msg
-        })
+        this.$message.success(res.msg)
       })
     }
   }
