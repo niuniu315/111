@@ -1,6 +1,6 @@
 <template>
   <div class="trash-detail">
-    <h1>{{msg}} : {{ $route.params.noteId }}</h1>
+    <h1>noteId: {{ $route.query.noteId }}</h1>
     <el-row>
       <el-button>默认按钮</el-button>
       <el-button type="primary">主要按钮</el-button>
@@ -15,7 +15,7 @@
 <script>
 export default {
   name: 'TrashDetail',
-  data () {
+  data() {
     return {
       msg: '回收站笔记详情页'
     }

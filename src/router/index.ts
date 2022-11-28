@@ -17,16 +17,13 @@ const routes: Array<RouteConfig> = [
     component: Notebook
   },
   {
-    path: '/detail/:noteId',
+    path: '/detail',
     component: NoteDetail
   },
   {
-    path: '/trash/:noteId',
+    path: '/trash',
     component: TrashDetail
   },
-  {
-    path: '/'
-  }
 ];
 
 const router = new VueRouter({
