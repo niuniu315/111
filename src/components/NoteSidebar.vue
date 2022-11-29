@@ -19,7 +19,7 @@
     <ul class="notes">
       <li v-for="note in notes">
         <router-link :to="`/detail?noteId=${note.id}`">
-          <span class="date">{{ note.updateAtBeautify }}</span>
+          <span class="date">{{ note.updatedAtFriendly }}</span>
           <span class="title">{{ note.title }}</span>
         </router-link>
       </li>
@@ -30,36 +30,16 @@
 <script lang="ts">
 import Icon from '@/components/Icon.vue';
 import NotebookApi from '@/api/NotebookApi';
+import NotesApi from '@/api/NotesApi';
 
 export default {
   name: 'NoteSidebar',
   components: {Icon},
   data() {
     return {
-      notebooks: [
-        {
-          id: 1,
-          title: 'hello',
-          updateAtBeautify: '刚刚'
-        },
-        {
-          id: 2,
-          title: 'hello word',
-          updateAtBeautify: '1分钟前'
-        }
-      ],
-      notes: [
-        {
-          id: 11,
-          title: 'hello word11',
-          updateAtBeautify: '1分钟前'
-        },
-        {
-          id: 22,
-          title: 'hello word22',
-          updateAtBeautify: '1分钟前'
-        }
-      ]
+      notebooks: [],
+      notes: [],
+      curBook:{}
     };
   },
   created() {
@@ -68,8 +48,12 @@ export default {
     })
   },
   methods: {
-    handleCommand(x) {
-      console.log(x);
+    handleCommand(notebookId) {
+      if (notebookId !== 'trash') {
+        NotesApi.getAll({ notebookId}).then(res => {
+          this.notes = res.data
+        })
+      }
     }
   }
 };
