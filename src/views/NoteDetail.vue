@@ -3,17 +3,17 @@
     <NoteSidebar></NoteSidebar>
     <div class="note-detail">
       <div class="note-bar">
-        <span> 创建日期: 2天前</span>
-        <span> 更新日期: 1分钟前</span>
-        <span> 已保存</span>
+        <span> 创建日期: {{ curNote.createdAtFriendly }}</span>
+        <span> 更新日期: {{ curNote.updatedAtFriendly }}</span>
+        <span> {{  curNote.statusText }}</span>
         <Icon name="huishouzhan" class="iconfont"/>
         <Icon name="yulan" class="iconfont"/>
       </div>
       <div class="note-title">
-        <input type="text" placeholder="输入标题">
+        <input type="text" :value="curNote.title" placeholder="输入标题">
       </div>
       <div class="editor">
-        <textarea v-show="true" placeholder="输入内容, 支持 markdown 语法"></textarea>
+        <textarea v-show="true" :value="curNote.content" placeholder="输入内容, 支持 markdown 语法"></textarea>
         <div class="preview markdown-body" v-html="" v-show="false">
         </div>
       </div>
@@ -30,7 +30,13 @@ export default {
   components: {NoteSidebar, Icon},
   data() {
     return {
-      msg: '笔记详情页'
+      curNote: {
+        title: '我的笔记',
+        content: '我的笔记内容',
+        createdAtFriendly: '一天前',
+        updatedAtFriendly: '刚刚',
+        statusText: '未更新'
+      }
     }
   }
 };
