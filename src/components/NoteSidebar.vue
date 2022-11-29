@@ -56,6 +56,7 @@ export default {
       if (notebookId == 'trash') {
         return this.$router.push({path: '/trash'})
       }
+      this.curBook = this.notebooks.find(notebook => notebook.id == notebookId)
       NotesApi.getAll({notebookId}).then(res => {
         this.notes = res.data;
       });
