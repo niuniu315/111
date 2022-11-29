@@ -29,6 +29,7 @@
 
 <script lang="ts">
 import Icon from '@/components/Icon.vue';
+import NotebookApi from '@/api/NotebookApi';
 
 export default {
   name: 'NoteSidebar',
@@ -60,6 +61,11 @@ export default {
         }
       ]
     };
+  },
+  created() {
+    NotebookApi.getAll().then(res => {
+      this.notebooks = res.data
+    })
   },
   methods: {
     handleCommand(x) {
