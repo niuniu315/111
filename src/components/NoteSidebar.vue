@@ -2,7 +2,7 @@
   <div class="note-sidebar">
     <span class="btn add-note">添加笔记</span>
     <el-dropdown class="notebook-title" @command="handleCommand" placement="bottom">
-      <span class="el-dropdown-link">我的笔记1
+      <span class="el-dropdown-link">{{ curBook.title }}
         <Icon name="down" class="iconfont"/>
       </span>
       <el-dropdown-menu slot="dropdown">
@@ -18,7 +18,7 @@
     </div>
     <ul class="notes">
       <li v-for="note in notes">
-        <router-link :to="`/detail?noteId=${note.id}`">
+        <router-link :to="`/detail?noteId=${note.id}&notebookId=${curBook.id}`">
           <span class="date">{{ note.updatedAtFriendly }}</span>
           <span class="title">{{ note.title }}</span>
         </router-link>
@@ -27,7 +27,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Icon from '@/components/Icon.vue';
 import NotebookApi from '@/api/NotebookApi';
 import NotesApi from '@/api/NotesApi';
@@ -39,21 +39,26 @@ export default {
     return {
       notebooks: [],
       notes: [],
-      curBook:{}
+      curBook: {}
     };
   },
   created() {
     NotebookApi.getAll().then(res => {
-      this.notebooks = res.data
-    })
+      this.notebooks = res.data;
+      this.curBook = this.notebooks.find(notebook => notebook.id == this.$route.query.notebookId) || this.notebooks[0] || {};
+      return NotesApi.getAll({notebookId: this.curBook.id}).then(res => {
+        this.notes = res.data
+      })
+    });
   },
   methods: {
     handleCommand(notebookId) {
-      if (notebookId !== 'trash') {
-        NotesApi.getAll({ notebookId}).then(res => {
-          this.notes = res.data
-        })
+      if (notebookId == 'trash') {
+        return this.$router.push({path: '/trash'})
       }
+      NotesApi.getAll({notebookId}).then(res => {
+        this.notes = res.data;
+      });
     }
   }
 };
