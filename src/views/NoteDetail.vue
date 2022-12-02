@@ -8,7 +8,7 @@
           <span> 创建日期: {{ curNote.createdAtFriendly }}</span>
           <span> 更新日期: {{ curNote.updatedAtFriendly }}</span>
           <span> {{ statusText }}</span>
-          <Icon name="huishouzhan" class="iconfont"/>
+          <Icon name="huishouzhan" class="iconfont" @click="deleteNote"/>
           <Icon name="yulan" class="iconfont"/>
         </div>
         <div class="note-title">
@@ -63,7 +63,16 @@ export default {
       }).catch(data => {
         this.statusText = '保存出错'
       })
-    }, 300)
+    }, 300),
+
+    deleteNote() {
+      NotesApi.deleteNote({ noteId: this.curNote.id })
+          .then(data => {
+            this.$message.success(data.msg)
+            this.notes.splice(this.notes.indexOf(this.curNote), 1)
+            this.$router.replace({ path: '/detail' })
+          })
+    }
   },
   beforeRouteUpdate(to, from, next) {
     this.curNote = this.notes.find(note => note.id == to.query.noteId) || {}
