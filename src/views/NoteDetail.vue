@@ -12,10 +12,13 @@
           <Icon name="yulan" class="iconfont"/>
         </div>
         <div class="note-title">
-          <input type="text" v-model:value="curNote.title" @input="updateNote" placeholder="输入标题">
+          <input type="text" v-model:value="curNote.title"
+                 @input="updateNote" placeholder="输入标题"
+                 @keydown="statusText='正在输入...'">
         </div>
         <div class="editor">
-          <textarea v-show="true" v-model:value="curNote.content" @input="updateNote" placeholder="输入内容, 支持 markdown 语法"></textarea>
+          <textarea v-show="true" v-model:value="curNote.content" @input="updateNote" placeholder="输入内容, 支持 markdown 语法"
+                    @keydown="statusText='正在输入...'"></textarea>
           <div class="preview markdown-body" v-html="" v-show="false">
           </div>
         </div>
