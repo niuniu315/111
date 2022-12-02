@@ -9,7 +9,8 @@
           <span> 更新日期: {{ curNote.updatedAtFriendly }}</span>
           <span> {{ statusText }}</span>
           <Icon name="huishouzhan" class="iconfont" @click="deleteNote"/>
-          <Icon name="yulan" class="iconfont"/>
+          <Icon name="yulan" class="iconfont"
+                @click="isShowPreview = !isShowPreview"/>
         </div>
         <div class="note-title">
           <input type="text" v-model:value="curNote.title"
@@ -17,9 +18,12 @@
                  @keydown="statusText='正在输入...'">
         </div>
         <div class="editor">
-          <textarea v-show="true" v-model:value="curNote.content" @input="updateNote" placeholder="输入内容, 支持 markdown 语法"
+          <textarea v-show="isShowPreview"
+                    v-model:value="curNote.content" 
+                    @input="updateNote"
+                    placeholder="输入内容, 支持 markdown 语法"
                     @keydown="statusText='正在输入...'"></textarea>
-          <div class="preview markdown-body" v-html="" v-show="false">
+          <div class="preview markdown-body" v-html="previewContent" v-show="!isShowPreview">
           </div>
         </div>
       </div>
@@ -35,6 +39,9 @@ import LoginApi from "@/api/LoginApi";
 import Vuee from '@/helper/vuee'
 import NotesApi from '@/api/NotesApi'
 import _ from 'lodash'
+import MarkdownIt from 'markdown-it'
+
+let md = new MarkdownIt()
 
 export default {
   name: 'NoteDetail',
@@ -43,7 +50,8 @@ export default {
     return {
       curNote: {},
       notes: [],
-      statusText: '笔记未改动'
+      statusText: '笔记未改动',
+      isShowPreview: false
     }
   },
   created() {
@@ -56,9 +64,13 @@ export default {
       this.curNote = val.find(note => note.id == this.$route.query.noteId) || {}
     })
   },
+
   methods: {
     updateNote: _.debounce(function () {
-      NotesApi.updateNote({noteId: this.curNote.id}, {title: this.curNote.title, content: this.curNote.content}).then(data => {
+      NotesApi.updateNote({noteId: this.curNote.id}, {
+        title: this.curNote.title,
+        content: this.curNote.content
+      }).then(data => {
         this.statusText = '已保存'
       }).catch(data => {
         this.statusText = '保存出错'
@@ -66,14 +78,21 @@ export default {
     }, 300),
 
     deleteNote() {
-      NotesApi.deleteNote({ noteId: this.curNote.id })
+      NotesApi.deleteNote({noteId: this.curNote.id})
           .then(data => {
             this.$message.success(data.msg)
             this.notes.splice(this.notes.indexOf(this.curNote), 1)
-            this.$router.replace({ path: '/detail' })
+            this.$router.replace({path: '/detail'})
           })
     }
   },
+
+  computed: {
+    previewContent() {
+      return md.render(this.curNote.content || '')
+    }
+  },
+
   beforeRouteUpdate(to, from, next) {
     this.curNote = this.notes.find(note => note.id == to.query.noteId) || {}
     next()
