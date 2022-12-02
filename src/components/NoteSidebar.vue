@@ -48,6 +48,7 @@ export default {
       this.curBook = this.notebooks.find(notebook => notebook.id == this.$route.query.notebookId) || this.notebooks[0] || {};
       return NotesApi.getAll({notebookId: this.curBook.id}).then(res => {
         this.notes = res.data
+        this.$emit('update:notes', this.notes)
       })
     });
   },
@@ -59,6 +60,7 @@ export default {
       this.curBook = this.notebooks.find(notebook => notebook.id == notebookId)
       NotesApi.getAll({notebookId}).then(res => {
         this.notes = res.data;
+        this.$emit('update:notes', this.notes)
       });
     }
   }
