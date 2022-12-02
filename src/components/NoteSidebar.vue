@@ -31,6 +31,7 @@
 import Icon from '@/components/Icon.vue';
 import NotebookApi from '@/api/NotebookApi';
 import NotesApi from '@/api/NotesApi';
+import Vuee from '@/helper/vuee'
 
 export default {
   name: 'NoteSidebar',
@@ -49,6 +50,7 @@ export default {
       return NotesApi.getAll({notebookId: this.curBook.id}).then(res => {
         this.notes = res.data
         this.$emit('update:notes', this.notes)
+        Vuee.$emit('update:notes', this.notes)
       })
     });
   },
