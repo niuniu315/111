@@ -44,9 +44,6 @@ export default {
   },
   beforeRouteUpdate(to, from, next) {
     this.curNote = this.notes.find(note => note.id == to.query.noteId)
-    console.log(to, from)
-    console.log(this.notes);
-    console.log(to.query.noteId)
     next()
   }
 };
